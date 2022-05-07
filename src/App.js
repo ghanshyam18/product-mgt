@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Button, Divider, Layout, Menu, Popconfirm, Rate, Space, Table, Typography } from 'antd';
+import { ContainerOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import ProductForm from './components/ProductForm';
-import { useDispatch, useSelector } from 'react-redux';
 import { setProducts } from './store/products/slice';
-import { ContainerOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import ProductFilter from './components/ProductFilter';
 
 const { Header, Sider, Content } = Layout;
@@ -22,7 +22,7 @@ function App() {
   const dispatch = useDispatch();
 
   const closeModal = () => {
-    setVisible(false)
+    setVisible(null)
   };
 
   useEffect(() => {
@@ -55,7 +55,13 @@ function App() {
   const handleSearch = (e) => {
     const { value } = e.target;
     const pList = [...productList];
-    setProdList(pList.filter((p) => p.name.toLowerCase().indexOf(value.toLowerCase()) > -1 || p.description.toLowerCase().indexOf(value.toLowerCase()) > -1 || p.price.toString().toLowerCase().indexOf(value.toLowerCase()) > -1));
+    setProdList(
+      pList.filter((p) => 
+        p.name.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+        p.description.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+        p.price.toString().toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+        p.id.toLowerCase() === value
+      ));
   };
 
   const handleSort = (val, type = '') => {
@@ -106,7 +112,7 @@ function App() {
             </div>
             <Table
               dataSource={prodList}
-              key={(p) => p.id}
+              rowKey={(p) => p.id}
               columns={[
                 { dataIndex: 'id', title: 'Id' },
                 { dataIndex: 'name', title: 'Name' },

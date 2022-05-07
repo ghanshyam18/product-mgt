@@ -4,12 +4,12 @@ import { Input, Select } from 'antd';
 const { Option } = Select;
 
 function ProductFilter(props) {
-  const { handleSearch, sorting, handleSort } = props;
+  const { handleSearch = () => {}, sorting = {}, handleSort = () => {} } = props;
 
   return (
     <>
       <div>
-        <Input onChange={handleSearch} placeholder="Search by name, price, description..." />
+        <Input onChange={handleSearch} placeholder="Search by name, price, description, id..." />
       </div>
       <div>
         <Select allowClear value={sorting?.price} onChange={(val) => handleSort(val, 'price')} placeholder="Sort by Price">
