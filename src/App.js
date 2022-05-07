@@ -97,9 +97,7 @@ function App() {
         <Header className="custom-header">
           <Title level={2}>Product Dashboard</Title>
         </Header>
-        <Content
-          className="site-layout-background"
-        >
+        <Content className="site-layout-background">
           <div className="product-main">
             <div className="product-filter">
               <ProductFilter sorting={sorting} handleSort={handleSort} handleSearch={handleSearch} />
